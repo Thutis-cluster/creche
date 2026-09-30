@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Little Stars Creche</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#3A2E26;
+    --cream:#FFF8EC;
+    --yellow:#F4B942;
+    --sky:#4A9DC7;
+    --coral:#E8735F;
+    --line: rgba(58,46,38,0.13);
+    --display: 'Baloo 2', -apple-system, sans-serif;
+    --sans: 'Quicksand', -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{ font-family: var(--sans); color: var(--ink); background: var(--cream); line-height:1.65; font-weight:500; }
+  a{ color:inherit; }
+  .wrap{ max-width: 1120px; margin:0 auto; padding: 0 24px; }
+
+  /* ---------- Top bar ---------- */
+  .topbar{ background: var(--sky); color:#fff; font-size:0.85rem; }
+  .topbar .wrap{ display:flex; justify-content:space-between; padding: 8px 24px; flex-wrap:wrap; gap:8px; }
+
+  /* ---------- Nav ---------- */
+  .nav{ background: var(--cream); border-bottom: 3px solid var(--yellow); position:sticky; top:0; z-index:20; }
+  .nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:82px; gap:20px; }
+  .brand{ display:flex; align-items:center; gap:10px; font-family: var(--display); font-weight:700; font-size:1.35rem; color: var(--coral); }
+  .brand svg{ width:36px; height:36px; }
+  .nav-links{ display:flex; gap:26px; list-style:none; }
+  .nav-links a{ text-decoration:none; font-weight:600; font-size:0.92rem; }
+  .nav-links a:hover{ color: var(--coral); }
+  .nav-actions{ display:flex; gap:10px; }
+  .icon-btn{ display:flex; align-items:center; gap:8px; padding:11px 18px; border-radius:24px; text-decoration:none; font-weight:700; font-size:0.88rem; white-space:nowrap; }
+  .icon-btn svg{ width:16px; height:16px; flex-shrink:0; }
+  .icon-btn.call{ background: var(--coral); color:#fff; }
+  .icon-btn.directions{ border:2px solid var(--ink); }
+  @media (max-width:900px){ .nav-links{ display:none; } }
+  @media (max-width:760px){ .nav-actions{ display:none; } }
+
+  /* ---------- Sticky mobile bar ---------- */
+  .sticky-actions{ display:none; }
+  @media (max-width:760px){
+    .sticky-actions{
+      display:flex; position:fixed; bottom:0; left:0; right:0; z-index:30; gap:8px;
+      padding: 10px 10px calc(10px + env(safe-area-inset-bottom,0px));
+      background: var(--ink); box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    }
+    .sticky-actions a{ flex:1; display:flex; align-items:center; justify-content:center; gap:6px; padding:14px 6px; border-radius:20px; text-decoration:none; font-weight:700; font-size:0.9rem; }
+    .sticky-actions svg{ width:17px; height:17px; flex-shrink:0; }
+    .sticky-actions .call{ background: var(--coral); color:#fff; }
+    .sticky-actions .whatsapp{ background:#1E9E5A; color:#fff; }
+    .sticky-actions .directions{ background: var(--yellow); color: var(--ink); }
+    body{ padding-bottom: 76px; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding: 76px 0 60px; }
+  .hero .wrap{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:56px; align-items:center; }
+  .hero .kicker{ font-family: var(--display); font-weight:600; font-size:0.95rem; color: var(--sky); margin-bottom:14px; }
+  .hero h1{ font-family: var(--display); font-weight:700; font-size: clamp(2.2rem,4.4vw,3.3rem); line-height:1.2; max-width:13ch; }
+  .hero p{ margin-top:20px; font-size:1.06rem; color: rgba(58,46,38,0.75); max-width:44ch; }
+  .hero-ctas{ margin-top:28px; display:flex; gap:14px; flex-wrap:wrap; }
+  .btn-primary{ background: var(--coral); color:#fff; padding:15px 30px; border-radius:26px; text-decoration:none; font-weight:700; font-size:0.95rem; }
+  .btn-secondary{ padding:15px 30px; border-radius:26px; text-decoration:none; font-weight:700; font-size:0.95rem; border:2px solid var(--ink); }
+  .hero-art{ background:#fff; border-radius:20px; aspect-ratio:4/5; display:flex; align-items:center; justify-content:center; box-shadow: 0 20px 40px rgba(58,46,38,0.08); }
+  .hero-art svg{ width:70%; height:70%; }
+  @media (max-width:860px){ .hero .wrap{ grid-template-columns:1fr; } .hero-art{ order:-1; max-width:260px; margin:0 auto; } }
+
+  .trust{ background: var(--yellow); }
+  .trust .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px 32px; padding: 18px 24px; }
+  .trust div{ font-family: var(--display); font-weight:600; font-size:0.9rem; }
+
+  /* ---------- Section shell ---------- */
+  section{ padding: 84px 0; }
+  .section-head{ margin-bottom: 40px; max-width:58ch; }
+  .section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+  .kicker{ font-family: var(--display); font-weight:600; font-size:0.88rem; color: var(--coral); margin-bottom:8px; }
+  h2{ font-family: var(--display); font-weight:700; font-size: clamp(1.7rem,3vw,2.3rem); }
+  .section-head p{ margin-top:12px; color: rgba(58,46,38,0.62); }
+
+  /* ---------- Age groups ---------- */
+  .groups{ display:grid; grid-template-columns: repeat(3,1fr); gap:22px; }
+  .group{ background:#fff; border-radius:18px; padding: 30px 26px; border: 3px solid var(--line); }
+  .group:nth-child(1){ border-color: var(--sky); }
+  .group:nth-child(2){ border-color: var(--yellow); }
+  .group:nth-child(3){ border-color: var(--coral); }
+  .group svg{ width:44px; height:44px; margin-bottom:14px; }
+  .group h3{ font-family: var(--display); font-weight:700; font-size:1.15rem; }
+  .group .age{ font-size:0.85rem; color: var(--coral); font-weight:700; margin-top:2px; }
+  .group p{ font-size:0.9rem; color: rgba(58,46,38,0.62); margin-top:10px; }
+  @media (max-width:860px){ .groups{ grid-template-columns:1fr; } }
+
+  /* ---------- What's included ---------- */
+  .included{ background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .include-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:1px; background: var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .include{ background:#fff; padding: 28px 24px; }
+  .include svg{ width:32px; height:32px; margin-bottom:12px; }
+  .include h3{ font-family: var(--display); font-weight:600; font-size:1.02rem; }
+  .include p{ font-size:0.88rem; color: rgba(58,46,38,0.6); margin-top:6px; }
+  @media (max-width:860px){ .include-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:520px){ .include-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- Fees ---------- */
+  .fees{ display:grid; grid-template-columns: 1fr 1fr; gap: 0 64px; }
+  .fee-group{ border-top: 3px solid var(--sky); padding: 20px 0 28px; }
+  .fee-group h3{ font-family: var(--display); font-weight:700; font-size:1.2rem; margin-bottom:6px; }
+  .fee-row{ display:grid; grid-template-columns: 1fr auto; gap:16px; align-items:baseline; padding:12px 0; border-bottom:1px dashed var(--line); }
+  .fee-row:last-child{ border-bottom:none; }
+  .fee-row .name small{ display:block; font-weight:400; font-size:0.8rem; color: rgba(58,46,38,0.55); }
+  .fee-row .price{ font-family: var(--display); font-weight:700; font-size:1.1rem; color: var(--coral); white-space:nowrap; }
+  .fees-note{ font-size:0.86rem; color: rgba(58,46,38,0.55); margin-top:8px; }
+  @media (max-width:820px){ .fees{ grid-template-columns:1fr; gap:0; } }
+
+  /* ---------- Info strip ---------- */
+  .info{ background: var(--sky); color:#fff; }
+  .info .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px; padding: 32px 24px; }
+  .info-block b{ display:block; font-family: var(--display); font-weight:600; font-size:1rem; margin-bottom:4px; }
+  .info-block span{ font-size:0.86rem; color: rgba(255,255,255,0.92); }
+  .info-block a{ color:#fff; text-decoration:underline; }
+
+  /* ---------- Enrolment form ---------- */
+  .enrol .wrap{ display:grid; grid-template-columns: 0.85fr 1.15fr; gap:56px; }
+  .enrol .section-head{ margin-bottom:0; }
+  form{ display:grid; gap:16px; }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  label{ display:block; font-size:0.82rem; font-weight:700; margin-bottom:6px; }
+  input, select, textarea{ width:100%; padding:13px 14px; font-family: var(--sans); font-size:0.95rem; border:2px solid var(--line); background:#fff; border-radius:12px; }
+  input:focus, select:focus, textarea:focus{ outline:2px solid var(--sky); outline-offset:1px; }
+  .submit-btn{ justify-self:start; background: var(--coral); color:#fff; border:none; padding:15px 32px; font-weight:700; font-size:0.95rem; border-radius:26px; cursor:pointer; }
+  .submit-btn:hover{ background:#d15f4c; }
+  .form-note{ font-size:0.82rem; color: rgba(58,46,38,0.5); }
+  @media (max-width:860px){ .enrol .wrap{ grid-template-columns:1fr; } .form-row{ grid-template-columns:1fr; } }
+
+  /* ---------- Footer ---------- */
+  footer{ background: var(--ink); color: rgba(255,248,236,0.72); padding: 44px 0; }
+  footer .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-size:0.88rem; }
+  footer .brand{ color:#fff; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>Sawubona · Welkom · Molweni — now enrolling for next term</span>
+    <span>Registered with the Department of Social Development</span>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="14" r="8" fill="#F4B942"/><path d="M8 34c0-8 6-13 12-13s12 5 12 13" fill="#4A9DC7"/></svg>
+      Little Stars
+    </div>
+    <ul class="nav-links">
+      <li><a href="#groups">Age Groups</a></li>
+      <li><a href="#included">What's Included</a></li>
+      <li><a href="#fees">Fees</a></li>
+      <li><a href="#enrol">Enrol</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a class="icon-btn directions" href="https://www.google.com/maps/search/?api=1&query=45+Sunflower+Street%2C+Durban" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+        Directions
+      </a>
+      <a class="icon-btn call" href="tel:+27310000000">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 006 6L15 14l5 2v4a2 2 0 01-2 2C9.7 22 2 14.3 2 6a2 2 0 012-2z"/></svg>
+        Call now
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="sticky-actions">
+  <a class="call" href="tel:+27310000000">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 006 6L15 14l5 2v4a2 2 0 01-2 2C9.7 22 2 14.3 2 6a2 2 0 012-2z"/></svg>
+    Call
+  </a>
+  <a class="whatsapp" href="https://wa.me/27310000000" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20l1.4-4.2A8 8 0 1112 20a8 8 0 01-3.8-1z"/></svg>
+    WhatsApp
+  </a>
+  <a class="directions" href="https://www.google.com/maps/search/?api=1&query=45+Sunflower+Street%2C+Durban" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+    Directions
+  </a>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="kicker">SAFE · NURTURING · CLOSE TO HOME</div>
+      <h1>Where little ones learn, laugh, and grow.</h1>
+      <p>A warm, secure creche caring for babies through Grade R — qualified staff, nutritious meals, and a safe place for your child every day of the week.</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="#enrol">Enrol your child</a>
+        <a class="btn-secondary" href="#groups">See age groups</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="55" r="26" fill="#F4B942"/>
+        <path d="M64 130c0-22 16-38 36-38s36 16 36 38" fill="#4A9DC7"/>
+        <rect x="60" y="140" width="18" height="18" rx="3" fill="#E8735F"/>
+        <rect x="91" y="140" width="18" height="18" rx="3" fill="#F4B942"/>
+        <rect x="122" y="140" width="18" height="18" rx="3" fill="#4A9DC7"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="wrap">
+    <div>Qualified &amp; CPR-trained staff</div>
+    <div>Nutritious meals included</div>
+    <div>Secure, fenced premises</div>
+    <div>Aftercare available</div>
+  </div>
+</div>
+
+<section id="groups">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="kicker">AGE GROUPS</div>
+      <h2>A programme for every stage</h2>
+    </div>
+    <div class="groups">
+      <div class="group">
+        <svg viewBox="0 0 40 40" fill="none" stroke="#4A9DC7" stroke-width="2"><circle cx="20" cy="14" r="7"/><path d="M8 32c0-8 5-13 12-13s12 5 12 13"/></svg>
+        <h3>Babies</h3>
+        <div class="age">3 months – 1 year</div>
+        <p>Gentle care, feeding, and sleep routines in a calm, quiet room.</p>
+      </div>
+      <div class="group">
+        <svg viewBox="0 0 40 40" fill="none" stroke="#F4B942" stroke-width="2"><circle cx="20" cy="20" r="14"/><path d="M14 22a6 6 0 0012 0"/><circle cx="15" cy="16" r="1.5" fill="#F4B942" stroke="none"/><circle cx="25" cy="16" r="1.5" fill="#F4B942" stroke="none"/></svg>
+        <h3>Toddlers</h3>
+        <div class="age">1 – 3 years</div>
+        <p>Play-based learning, songs, and the first steps toward independence.</p>
+      </div>
+      <div class="group">
+        <svg viewBox="0 0 40 40" fill="none" stroke="#E8735F" stroke-width="2"><rect x="8" y="10" width="24" height="20" rx="2"/><path d="M8 16h24M14 10v6M26 10v6"/></svg>
+        <h3>Grade R</h3>
+        <div class="age">4 – 6 years</div>
+        <p>School-readiness: letters, numbers, and structured classroom time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="included" id="included">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="kicker">WHAT'S INCLUDED</div>
+      <h2>Everything your child needs for the day</h2>
+    </div>
+    <div class="include-grid">
+      <div class="include">
+        <svg viewBox="0 0 32 32" fill="none" stroke="#E8735F" stroke-width="2"><circle cx="16" cy="16" r="12"/><path d="M10 16h12M16 10v12"/></svg>
+        <h3>Breakfast, lunch &amp; snacks</h3>
+        <p>Balanced, nutritious meals prepared fresh each day.</p>
+      </div>
+      <div class="include">
+        <svg viewBox="0 0 32 32" fill="none" stroke="#4A9DC7" stroke-width="2"><path d="M16 4l4 8 9 1-6.5 6 1.5 9-8-4.5-8 4.5 1.5-9L3 13l9-1z"/></svg>
+        <h3>Structured learning</h3>
+        <p>Age-appropriate activities that build toward Grade R readiness.</p>
+      </div>
+      <div class="include">
+        <svg viewBox="0 0 32 32" fill="none" stroke="#F4B942" stroke-width="2"><rect x="6" y="12" width="20" height="14" rx="2"/><path d="M11 12V9a5 5 0 0110 0v3"/></svg>
+        <h3>Secure premises</h3>
+        <p>Fenced grounds, sign-in/sign-out, and CCTV-monitored access.</p>
+      </div>
+      <div class="include">
+        <svg viewBox="0 0 32 32" fill="none" stroke="#E8735F" stroke-width="2"><circle cx="16" cy="12" r="6"/><path d="M8 27c0-6 4-10 8-10s8 4 8 10"/></svg>
+        <h3>Qualified staff</h3>
+        <p>ECD-trained caregivers, first-aid and CPR certified.</p>
+      </div>
+      <div class="include">
+        <svg viewBox="0 0 32 32" fill="none" stroke="#4A9DC7" stroke-width="2"><circle cx="16" cy="16" r="12"/><path d="M16 9v7l5 3"/></svg>
+        <h3>Extended aftercare</h3>
+        <p>Available until 5:30pm for working parents.</p>
+      </div>
+      <div class="include">
+        <svg viewBox="0 0 32 32" fill="none" stroke="#F4B942" stroke-width="2"><path d="M6 16c3-6 8-9 10-9s7 3 10 9c-3 6-8 9-10 9s-7-3-10-9z"/><circle cx="16" cy="16" r="3"/></svg>
+        <h3>Regular parent updates</h3>
+        <p>Daily feedback sheets and termly progress reports.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fees">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">FEES</div>
+      <h2>Simple, monthly fees per age group</h2>
+    </div>
+    <div class="fees">
+      <div class="fee-group">
+        <h3>Monthly Fees</h3>
+        <div class="fee-row"><div class="name">Babies<small>3 months – 1 year</small></div><div class="price">R2,400/mo</div></div>
+        <div class="fee-row"><div class="name">Toddlers<small>1 – 3 years</small></div><div class="price">R2,100/mo</div></div>
+        <div class="fee-row"><div class="name">Grade R<small>4 – 6 years</small></div><div class="price">R1,900/mo</div></div>
+        <div class="fee-row"><div class="name">Registration fee<small>Once-off</small></div><div class="price">R450</div></div>
+      </div>
+      <div class="fee-group">
+        <h3>Extras</h3>
+        <div class="fee-row"><div class="name">Extended aftercare<small>Until 5:30pm</small></div><div class="price">R350/mo</div></div>
+        <div class="fee-row"><div class="name">Sibling discount</div><div class="price">10% off</div></div>
+        <div class="fee-row"><div class="name">School holiday care<small>Per day</small></div><div class="price">R120</div></div>
+      </div>
+    </div>
+    <p class="fees-note">Fees are estimates and can change per term — confirmed at enrolment. Fees are billed monthly, ten months per year.</p>
+  </div>
+</section>
+
+<div class="info">
+  <div class="wrap">
+    <div class="info-block"><b>Hours</b><span>Mon–Fri, 6:30am–5:30pm</span></div>
+    <div class="info-block"><b>Location</b><span><a href="https://www.google.com/maps/search/?api=1&query=45+Sunflower+Street%2C+Durban" target="_blank" rel="noopener">45 Sunflower Street, Durban</a></span></div>
+    <div class="info-block"><b>Phone</b><span><a href="tel:+27310000000">031 000 0000</a></span></div>
+  </div>
+</div>
+
+<section class="enrol" id="enrol">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">ENROL YOUR CHILD</div>
+      <h2>Request a spot for next term</h2>
+      <p>Fill this in and we'll be in touch to arrange a visit and confirm availability for your child's age group.</p>
+    </div>
+    <form onsubmit="event.preventDefault(); alert('Thanks — replace this with your real enquiry handler.');">
+      <div class="form-row">
+        <div><label for="pname">Parent/guardian name</label><input id="pname" type="text" required></div>
+        <div><label for="phone">Cell number</label><input id="phone" type="tel" required></div>
+      </div>
+      <div class="form-row">
+        <div><label for="cname">Child's name</label><input id="cname" type="text" required></div>
+        <div><label for="group">Age group</label>
+          <select id="group">
+            <option>Babies (3 months – 1 year)</option>
+            <option>Toddlers (1 – 3 years)</option>
+            <option>Grade R (4 – 6 years)</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="start">Preferred start date</label>
+        <input id="start" type="date">
+      </div>
+      <div>
+        <label for="notes">Anything we should know? (allergies, special needs, etc.)</label>
+        <textarea id="notes" rows="3"></textarea>
+      </div>
+      <button class="submit-btn" type="submit">Send enquiry</button>
+      <p class="form-note">This form doesn't send email on its own — see the notes below for how to connect it in WordPress.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">Little Stars Creche</div>
+    <div>45 Sunflower Street, Durban · 031 000 0000</div>
+  </div>
+</footer>
+
+</body>
+</html>
